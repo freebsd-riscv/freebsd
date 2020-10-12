@@ -142,8 +142,8 @@ elf64_dump_thread(struct thread *td, void *dst, size_t *off)
 }
 
 /*
- * Following 4 functions are used to manupilate bits on 32bit interger value.
- * FIXME: I implemetend for ease-to-understand rather than for well-optimized.
+ * Following 4 functions are used to manipulate bits on a 32bit integer value.
+ * FIXME: I implemented for ease of understanding rather than for performance.
  */
 static uint32_t
 gen_bitmask(int msb, int lsb)
@@ -206,8 +206,8 @@ insert_imm(uint32_t insn, uint32_t imm, int imm_msb, int imm_lsb,
  * The RISC-V ISA is designed so that all of immediate values are
  * sign-extended.
  * An immediate value is sometimes generated at runtime by adding
- * 12bit sign integer and 20bit signed integer. This requests 20bit
- * immediate value to be ajusted if the MSB of the 12bit immediate
+ * a 12bit signed integer and a 20bit signed integer. This requests 20bit
+ * immediate value to be adjusted if the MSB of the 12bit immediate
  * value is asserted (sign-extended value is treated as negative value).
  *
  * For example, 0x123800 can be calculated by adding upper 20 bit of
@@ -223,8 +223,8 @@ static uint32_t
 calc_hi20_imm(uint32_t value)
 {
 	/*
-	 * There is the arithmetical hack that can remove conditional
-	 * statement. But I implement it in straightforward way.
+	 * There is an arithmetical hack that can remove conditional
+	 * statement. But I implemented it in a straight-forward way.
 	 */
 	if ((value & 0x800) != 0)
 		value += 0x1000;
@@ -260,7 +260,7 @@ reloctype_to_str(int type)
 }
 
 /*
- * Currently kernel loadable module for RISCV is compiled with -fPIC option.
+ * Currently kernel loadable modules for RISCV are compiled with -fPIC option.
  * (see also additional CFLAGS definition for RISCV in sys/conf/kmod.mk)
  * Only R_RISCV_64, R_RISCV_JUMP_SLOT and RISCV_RELATIVE are emitted in
  * the module. Other relocations will be processed when kernel loadable
